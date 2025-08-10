@@ -3,7 +3,7 @@ import "./styles.css";
 import FlightRow from "./FlightRow";
 import { getFlightsMock, getDeparturesMock, getFlightsLive } from "./flightService";
 
-const PAGE_SIZE = 5;       // ← change to 8 or 10 if you prefer
+const PAGE_SIZE = 15;       // ← change to 8 or 10 if you prefer
 const ROTATE_MS = 7000;    // ← how often to change pages
 
 const USE_LIVE = true;     // leave true to use your Netlify function
