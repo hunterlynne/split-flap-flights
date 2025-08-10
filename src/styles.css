@@ -1,0 +1,161 @@
+/* ---- Split-flap tile (single-piece with hinge & shading) ---- */
+.splitflap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 1.15ch;
+  height: 2.2rem;
+  margin: 2px;
+  border-radius: 4px;
+
+  font-family: monospace;
+  font-weight: 700;
+  font-size: 2rem;
+  line-height: 1;
+
+  color: #fff;
+  background: linear-gradient(#1a1a1a, #0f0f0f);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06) inset,
+    0 -1px 0 rgba(0, 0, 0, 0.6) inset, 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+/* hinge seam */
+.splitflap::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.1),
+    rgba(0, 0, 0, 0.7)
+  );
+  transform: translateY(-0.5px);
+  box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.7), 0 1px 0 rgba(0, 0, 0, 0.7);
+  pointer-events: none;
+}
+
+/* simple twitch animation for the flap */
+.flipping {
+  animation: flip 0.1s linear;
+}
+@keyframes flip {
+  0% {
+    transform: rotateX(0deg);
+  }
+  50% {
+    transform: rotateX(90deg);
+  }
+  100% {
+    transform: rotateX(0deg);
+  }
+}
+
+/* ---- Scaled board wrapper (used by App.js auto-fit) ---- */
+.board-fit-container {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden; /* avoid double scrollbars when scaled */
+}
+
+/* ---- Board layout ---- */
+.board {
+  background: #0b0b0b;
+  padding: 12px;
+  display: inline-block;
+  max-width: none; /* allow natural width for accurate measurement */
+  overflow-x: auto; /* still scroll if extremely narrow */
+}
+
+.row {
+  display: flex;
+  gap: 8px;
+  background: #111;
+  padding: 4px;
+  margin: 2px 0;
+}
+
+/* Prevent wrapping inside columns */
+.row > div {
+  white-space: nowrap;
+}
+
+/* Column widths use measured tile width (incl. margins) from --tilew */
+.col-flight {
+  width: calc(8 * var(--tilew, 24px));
+}
+.col-origin {
+  width: calc(15 * var(--tilew, 24px));
+}
+.col-time {
+  width: calc(6 * var(--tilew, 24px));
+}
+.col-gate {
+  width: calc(5 * var(--tilew, 24px));
+}
+.col-status {
+  width: calc(10 * var(--tilew, 24px));
+}
+
+/* Column headers */
+.headers {
+  display: flex;
+  gap: 8px;
+  color: #8a8a8a;
+  margin: 6px 0 4px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+/* Toolbar */
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+.toolbar h1 {
+  margin: 0;
+}
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.controls .spacer {
+  width: 12px;
+}
+
+/* Pager */
+.pager {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+.pager > button {
+  border: 1px solid #ccc;
+  background: #f6f6f6;
+  padding: 3px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.pager .dots {
+  display: flex;
+  gap: 6px;
+}
+.pager .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: #cfcfcf;
+  border: none;
+  cursor: pointer;
+}
+.pager .dot.active {
+  background: #555;
+}
